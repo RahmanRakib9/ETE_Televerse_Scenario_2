@@ -15,7 +15,7 @@ COPY package.json ./
 ENV PORT=3000
 EXPOSE 3000
 
-# Healthcheck for Docker (curl inside container)
+# Healthcheck for Docker
 HEALTHCHECK --interval=10s --timeout=3s --retries=5 \
   CMD wget -qO- --tries=1 --timeout=2 http://127.0.0.1:3000/health || exit 1
 

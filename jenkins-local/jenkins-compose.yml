@@ -12,10 +12,10 @@ services:
       - "50000:50000"   # JNLP agents (optional)
     volumes:
       - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock   # <-- give Jenkins access to host docker
-      - /usr/bin/docker:/usr/bin/docker             # optional: bind host docker binary (if desired)
+      - /var/run/docker.sock:/var/run/docker.sock   
+      - /usr/bin/docker:/usr/bin/docker             # bind host docker binary (if desired)
     environment:
-      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false # optionally bypass wizard (we'll keep wizard on)
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false 
     restart: unless-stopped
 
 volumes:
