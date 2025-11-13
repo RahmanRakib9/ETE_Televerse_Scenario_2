@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  demo-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: demo_ci_cd_app
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "--tries=1", "--timeout=2", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
