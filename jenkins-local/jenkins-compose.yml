@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  jenkins:
+    build:
+      context: ./jenkins
+      dockerfile: Dockerfile
+    image: local/jenkins-docker:latest
+    container_name: jenkins-local
+    ports:
+      - "8080:8080"     # Jenkins UI
+      - "50000:50000"   # JNLP agents (optional)
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock   # <-- give Jenkins access to host docker
+      - /usr/bin/docker:/usr/bin/docker             # optional: bind host docker binary (if desired)
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false # optionally bypass wizard (we'll keep wizard on)
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:
